@@ -6,12 +6,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
+
 
 @Entity
 @Getter
@@ -25,7 +27,7 @@ public class Answer {
     @Column(length = 200)
     private String content;
 
-    private LocalDateTime createDateTime;
+    private LocalDateTime createDate;
 
     @ManyToOne
     private Question question;
