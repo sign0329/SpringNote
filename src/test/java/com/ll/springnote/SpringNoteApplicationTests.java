@@ -2,6 +2,7 @@ package com.ll.springnote;
 
 import com.ll.springnote.domain.question.Question;
 import com.ll.springnote.domain.question.QuestionRepository;
+import com.ll.springnote.domain.question.QuestionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +19,9 @@ class SpringNoteApplicationTests {
 
 	@Autowired
 	private QuestionRepository questionRepository;
+
+	@Autowired
+	private QuestionService questionService;
 
 	@Test
 	void jpaTest() {
@@ -57,6 +61,15 @@ class SpringNoteApplicationTests {
 		Question q = oq.get();
 		this.questionRepository.delete(q);
 		assertEquals(1, this.questionRepository.count());
+	}
+
+	@Test
+	void testPageing(){
+		for (int i = 0; i <= 300; i++){
+			String subject = String.format("테스트 데이터: [%03d]", i);
+			String content = "내용 없음";
+			this.questionService.create(subject, content);
+		}
 	}
 
 
