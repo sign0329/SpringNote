@@ -1,7 +1,7 @@
 package com.ll.springnote.domain.question;
 
 
-import com.ll.springnote.domain.Answer.Answer;
+import com.ll.springnote.domain.answer.Answer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

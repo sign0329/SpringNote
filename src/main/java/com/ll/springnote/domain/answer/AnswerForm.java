@@ -1,4 +1,4 @@
-package com.ll.springnote.domain.Answer;
+package com.ll.springnote.domain.answer;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
