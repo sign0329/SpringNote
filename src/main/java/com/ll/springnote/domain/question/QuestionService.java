@@ -1,6 +1,7 @@
 package com.ll.springnote.domain.question;
 
 import com.ll.springnote.DataNotFoundException;
+import com.ll.springnote.domain.user.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +35,11 @@ public class QuestionService {
 
     }
 
-    public void create(String subject, String content){
+    public void create(String subject, String content, SiteUser author){
         Question q = new Question();
         q.setSubject(subject);
         q.setContent(content);
+        q.setAuthor(author);
         q.setCreateDate(LocalDateTime.now());
         this.questionRepository.save(q);
     }

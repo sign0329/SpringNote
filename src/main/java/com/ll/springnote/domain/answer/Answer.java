@@ -1,6 +1,7 @@
 package com.ll.springnote.domain.answer;
 
 import com.ll.springnote.domain.question.Question;
+import com.ll.springnote.domain.user.SiteUser;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,5 +30,8 @@ public class Answer {
 
     @ManyToOne
     private Question question;
+
+    @ManyToOne
+    private SiteUser Author;
 
 }
