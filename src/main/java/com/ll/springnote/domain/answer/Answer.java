@@ -25,13 +25,15 @@ public class Answer {
 
     @Column(length = 200)
     private String content;
-
-    private LocalDateTime createDate;
-
+    
     @ManyToOne
     private Question question;
 
     @ManyToOne
-    private SiteUser Author;
+    private SiteUser author;
+
+    private LocalDateTime createDate;
+
+    private LocalDateTime modifyDate;
 
 }

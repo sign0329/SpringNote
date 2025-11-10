@@ -32,12 +32,14 @@ public class Question {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    private LocalDateTime createDate;
+    @ManyToOne
+    private SiteUser Author;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE) //참조 엔티티속성 및 삭제시 일괄 삭제
     private List<Answer> answerList;
 
-    @ManyToOne
-    private SiteUser Author;
+    private LocalDateTime createDate;
+
+    private LocalDateTime modifyDate;
 }
 
