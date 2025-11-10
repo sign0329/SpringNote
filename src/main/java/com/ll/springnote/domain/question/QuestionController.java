@@ -51,12 +51,14 @@ public class QuestionController {
 
     @GetMapping("/create")
     @PreAuthorize("isAuthenticated()")
-    public String questionCreate(QuestionForm questionForm) {return "question/question_form";}
+    public String questionCreate(QuestionForm questionForm) {
+        return "question/question_form";
+    }
 
     @PostMapping("/create")
     @PreAuthorize("isAuthenticated()")
     public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal) {
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "question/question_form";
         }
         SiteUser siteUser = this.userService.getUser(principal.getName());
@@ -66,13 +68,29 @@ public class QuestionController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
-    public String questionModify(QuestionForm questionForm,  @PathVariable("id") Integer id, Principal principal){
+    public String questionModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal) {
         Question question = this.questionService.getQuestion(id);
-        if(!question.getAuthor().getUsername().equals(principal.getName())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"수정권한이 없습니다");
+        if (!question.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         questionForm.setSubject(question.getSubject());
         questionForm.setContent(question.getContent());
-        return"/question/question_form";
+        return "question/question_form";
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/modify/{id}")
+    public String questionModify(QuestionForm questionForm, BindingResult bindingResult, @PathVariable("id") Integer id, Principal principal) {
+        if (bindingResult.hasErrors()) {
+            return "/question/question_form";
+        }
+
+        Question question = this.questionService.getQuestion(id);
+        if (!question.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다");
+        }
+        this.questionService.modify(question, questionForm.getSubject(), questionForm.getContent());
+        return String.format("redirect:/question/detail/%s", id);
+    }
+
 }

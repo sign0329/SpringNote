@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.security.auth.Subject;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -50,5 +51,12 @@ public class QuestionService {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
 
         return this.questionRepository.findAll(pageable);
+    }
+
+    public void modify(Question question, String subject, String context){
+        question.setSubject(subject);
+        question.setContent(context);
+        question.setModifyDate(LocalDateTime.now());
+        this.questionRepository.save(question);
     }
 }
