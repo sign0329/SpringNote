@@ -52,10 +52,22 @@
     <!-- 답변 반복 끝  -->
     <!-- 답변 작성 -->
     <form th:action="@{|/answer/create/${question.id}|}" th:object="${answerForm}" method="post" class="my-3">
-        <div th:replace="~{form_errors :: formErrorsFragment}" />
-        <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" rows="10" class="form-control"></textarea>
+        <div th:replace="~{form_errors :: formErrorsFragment}"/>
+        <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" rows="10"
+                  class="form-control"></textarea>
         <textarea sec:authorize="isAuthenticated()" th:field="*{content}" rows="10" class="form-control"></textarea>
         <input type="submit" value="답변등록" class="btn btn-dark my-2">
     </form>
 </div>
+<script layout:fragment="script" type='text/javascript'>
+    const delete_elements = document.getElementsByClassName("delete");
+    Array.from(delete_elements).forEach(function (element) {
+        element.addEventListener('click', function () {
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            }
+            ;
+        });
+    });
+</script>
 </html>
