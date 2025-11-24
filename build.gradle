@@ -54,6 +54,9 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
+	//markdown
+	implementation 'org.commonmark:commonmark:0.21.0'
+
 }
 
 tasks.named('test') {
