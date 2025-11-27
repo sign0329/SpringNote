@@ -35,7 +35,7 @@ public class Question {
     private String content;
 
     @ManyToOne
-    private SiteUser Author;
+    private SiteUser author;
 
     @ManyToMany
     Set<SiteUser> voter;
